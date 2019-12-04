@@ -1,6 +1,7 @@
 import React from "react";
 import ReactLoading from "react-loading";
 import styled from "styled-components";
+import Navigation from "./navigation";
 // import PropTypes from "prop-types";
 
 function Twister(props) {
@@ -16,7 +17,7 @@ function Twister(props) {
 
   const bodyParts = ["🖐", "🦶"];
   const sides = ["LEFT", "RIGHT"];
-  const colors = ["blue", "yellow", "red", "green", "AIR", "  SPINNER CHOOSES"];
+  const colors = ["blue", "yellow", "red", "green", "AIR ⛅️", "  SPINNER CHOOSES 🤔"];
 
   const spin = (e, bodyParts, colors, sides) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ function Twister(props) {
         setBodyPart(currentBodyPart);
         setTimeout(() => {
           setColor(currentColor);
-          if (currentColor === "AIR" || currentColor === "  SPINNER CHOOSES") {
+          if (currentColor === "AIR ⛅️" || currentColor === "  SPINNER CHOOSES 🤔") {
             setNonColor(currentColor);
           }
           setTimeout(() => {
@@ -49,6 +50,7 @@ function Twister(props) {
     margin-top: 50px;
     margin-bottom: 0px;
     color: orange;
+    text-align: center;
   `;
 
   const Container = styled.div`
@@ -118,7 +120,7 @@ function Twister(props) {
 
   return (
     <Container>
-      <Header>Twister</Header>
+      <Navigation title={"Twister"} />
       <ActionContainer>
         <ActionDiv>
           <Word>{side}</Word>

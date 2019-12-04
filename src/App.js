@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Twister from "./components/twister";
+// eslint-disable-next-line
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Home from "./components/home";
 import bingo from "./components/bingo";

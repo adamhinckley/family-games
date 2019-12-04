@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Navigation from "./navigation";
 
 function Home(props) {
@@ -9,7 +8,5 @@ function Home(props) {
     </div>
   );
 }
-
-Home.propTypes = {};
 
 export default Home;

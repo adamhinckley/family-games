@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactLoading from "react-loading";
 import styled from "styled-components";
 import Navigation from "./navigation";
-// import PropTypes from "prop-types";
 
 function Twister(props) {
-  const [bodyPart, setBodyPart] = React.useState("");
-  const [color, setColor] = React.useState("");
-  const [nonColor, setNonColor] = React.useState("");
-  const [side, setSide] = React.useState("");
-  const [spinning, setSpinning] = React.useState(false);
+  const [bodyPart, setBodyPart] = useState("");
+  const [color, setColor] = useState("");
+  const [nonColor, setNonColor] = useState("");
+  const [side, setSide] = useState("");
+  const [spinning, setSpinning] = useState(false);
 
   React.useEffect(() => {
     document.title = "Twister";
@@ -46,12 +45,12 @@ function Twister(props) {
     }, 500);
   };
 
-  const Header = styled.h1`
-    margin-top: 50px;
-    margin-bottom: 0px;
-    color: orange;
-    text-align: center;
-  `;
+  // const Header = styled.h1`
+  //   margin-top: 50px;
+  //   margin-bottom: 0px;
+  //   color: orange;
+  //   text-align: center;
+  // `;
 
   const Container = styled.div`
     display: flex;

@@ -118,7 +118,7 @@ function Twister(props) {
           <Word>{side}</Word>
         </ActionDiv>
         <ActionDiv>
-          <BodyPart>{bodyPart.toUpperCase()}</BodyPart>
+          <BodyPart>{bodyPart}</BodyPart>
         </ActionDiv>
         <ActionDiv>
           <Color>{nonColor}</Color>

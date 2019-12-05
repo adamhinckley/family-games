@@ -61,7 +61,7 @@ const NavContainer = styled.nav`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   justify-content: center;
   align-items: center;
   font-size: 20px;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { numbers } from "./assets/bingo-numbers";
+import Navigation from "./navigation";
 
 function Bingo() {
   const [bingoNumbers, setBingoNumbers] = useState([]);
@@ -17,6 +18,8 @@ function Bingo() {
   console.log(bingoNumbers);
   return (
     <div>
+      <Navigation title={"Bingo"} />
+
       {/* {shuffleNumbers(bingoNumbers)} */}
       {bingoNumbers[1]}
     </div>

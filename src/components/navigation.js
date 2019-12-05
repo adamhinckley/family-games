@@ -41,7 +41,7 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 `;
 
 const Header = styled.h1`
@@ -50,7 +50,7 @@ const Header = styled.h1`
 `;
 
 const Hamburger = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   /* justify-content: flex-end; */
   font-size: 50px;

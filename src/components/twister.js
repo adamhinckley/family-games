@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import ReactLoading from "react-loading";
 import styled from "styled-components";
 import Navigation from "./navigation";
+import { spinReducer, initialState } from "../Reducers/twister-reducer";
 
 function Twister(props) {
-  const [bodyPart, setBodyPart] = useState("");
-  const [color, setColor] = useState("");
-  const [nonColor, setNonColor] = useState("");
-  const [side, setSide] = useState("");
-  const [spinning, setSpinning] = useState(false);
+  const [state, dispatch] = useReducer(spinReducer, initialState);
+
+  const { bodyPart, color, nonColor, side, spinning } = state;
 
   React.useEffect(() => {
     document.title = "Twister";
@@ -20,25 +19,27 @@ function Twister(props) {
 
   const spin = (e, bodyParts, colors, sides) => {
     e.preventDefault();
-    setBodyPart("");
-    setColor("");
-    setSide("");
-    setSpinning(true);
-    setNonColor("");
+    dispatch({ type: "spin" });
+
     const currentColor = colors[Math.floor(Math.random() * colors.length)];
     const currentBodyPart = bodyParts[Math.floor(Math.random() * bodyParts.length)];
     const currentSide = sides[Math.floor(Math.random() * sides.length)];
+
     setTimeout(() => {
-      setSide(currentSide);
+      dispatch({ type: "setSide", payload: currentSide });
       setTimeout(() => {
-        setBodyPart(currentBodyPart);
+        dispatch({ type: "setBodyPart", payload: currentBodyPart });
+
         setTimeout(() => {
-          setColor(currentColor);
+          dispatch({ type: "setColor", payload: currentColor });
+
           if (currentColor === "AIR ⛅️" || currentColor === "  SPINNER CHOOSES 🤔") {
-            setNonColor(currentColor);
+            // setNonColor(currentColor);
+            dispatch({ type: "setNonColor", payload: currentColor });
           }
           setTimeout(() => {
-            setSpinning(false);
+            // setSpinning(false);
+            dispatch({ type: "stopSpinning" });
           }, 200);
         }, 500);
       }, 500);

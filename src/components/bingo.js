@@ -7,7 +7,7 @@ function Bingo() {
   useEffect(() => {
     shuffleNumbers(numbers);
     setBingoNumbers(numbers);
-  }, [bingoNumbers]);
+  }, []);
 
   const shuffleNumbers = arr => {
     arr.sort(() => Math.random() - 0.5);

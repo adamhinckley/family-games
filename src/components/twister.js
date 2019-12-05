@@ -13,11 +13,17 @@ function Twister(props) {
     document.title = "Twister";
   }, []);
 
+  // Values for the spinner
   const bodyParts = ["🖐", "🦶"];
   const sides = ["LEFT", "RIGHT"];
   const colors = ["blue", "yellow", "red", "green", "AIR ⛅️", "  SPINNER CHOOSES 🤔"];
 
-  const spin = (e, bodyParts, colors, sides) => {
+  //For better readability in the spin function
+  const delay = duration => {
+    return new Promise(resolve => setTimeout(resolve, duration));
+  };
+
+  const spin = async (e, bodyParts, colors, sides) => {
     e.preventDefault();
     dispatch({ type: "spin" });
 
@@ -25,33 +31,19 @@ function Twister(props) {
     const currentBodyPart = bodyParts[Math.floor(Math.random() * bodyParts.length)];
     const currentSide = sides[Math.floor(Math.random() * sides.length)];
 
-    setTimeout(() => {
-      dispatch({ type: "setSide", payload: currentSide });
-      setTimeout(() => {
-        dispatch({ type: "setBodyPart", payload: currentBodyPart });
-
-        setTimeout(() => {
-          dispatch({ type: "setColor", payload: currentColor });
-
-          if (currentColor === "AIR ⛅️" || currentColor === "  SPINNER CHOOSES 🤔") {
-            // setNonColor(currentColor);
-            dispatch({ type: "setNonColor", payload: currentColor });
-          }
-          setTimeout(() => {
-            // setSpinning(false);
-            dispatch({ type: "stopSpinning" });
-          }, 200);
-        }, 500);
-      }, 500);
-    }, 500);
+    await delay(500);
+    dispatch({ type: "setSide", payload: currentSide });
+    await delay(500);
+    dispatch({ type: "setBodyPart", payload: currentBodyPart });
+    await delay(500);
+    dispatch({ type: "setColor", payload: currentColor });
+    if (currentColor === "AIR ⛅️" || currentColor === "  SPINNER CHOOSES 🤔") {
+      dispatch({ type: "setNonColor", payload: currentColor });
+    }
+    await delay(200);
+    dispatch({ type: "stopSpinning" });
   };
-
-  // const Header = styled.h1`
-  //   margin-top: 50px;
-  //   margin-bottom: 0px;
-  //   color: orange;
-  //   text-align: center;
-  // `;
+  console.log("fired");
 
   const Container = styled.div`
     display: flex;
@@ -133,10 +125,10 @@ function Twister(props) {
         </ActionDiv>
       </ActionContainer>
       <ButtonContainer>
-        <Button onClick={e => spin(e, bodyParts, colors, sides)}>
+        <Button onClick={e => spin(e, bodyParts, colors, sides)} disabled={spinning}>
           {spinning ? (
             <LoadingContainer>
-              <ReactLoading type={"bubbles"} color="white" />
+              <ReactLoading type={"spin"} color="white" />
             </LoadingContainer>
           ) : (
             "Spin"
@@ -146,7 +138,5 @@ function Twister(props) {
     </Container>
   );
 }
-
-// Twister.propTypes = {};
 
 export default Twister;

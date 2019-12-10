@@ -13,9 +13,7 @@ function Navigation(props) {
   return (
     <>
       <HeaderContainer>
-        <div>
-          <Header>{props.title}</Header>
-        </div>
+        <Header>{props.title}</Header>
         {showNav ? (
           <Hamburger onClick={() => toggleNav()}>&#120299;</Hamburger>
         ) : (

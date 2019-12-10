@@ -1,8 +1,9 @@
 import React, { useReducer, useCallback } from "react";
 import ReactLoading from "react-loading";
 import styled from "styled-components";
-import Navigation from "./navigation";
 import { spinReducer, initialState } from "../Reducers/twister-reducer";
+import SwipeableTemporaryDrawer from "./mat-nav";
+
 import {
   Container,
   ActionDiv,
@@ -77,7 +78,8 @@ function Twister(props) {
 
   return (
     <Container>
-      <Navigation title={"Twister"} />
+      <SwipeableTemporaryDrawer title={"Twister"}></SwipeableTemporaryDrawer>
+
       <ActionContainer>
         <ActionDiv>
           <Word>{side}</Word>

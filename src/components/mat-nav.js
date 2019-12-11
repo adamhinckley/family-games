@@ -45,11 +45,11 @@ export default function SwipeableTemporaryDrawer(props) {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {["Home", "Twister", "Bingo"].map((text, index) => (
+        {["Twister", "Bingo"].map((text, index) => (
           <Link
             key={text}
             to={text === "Home" ? "/" : text}
-            style={{ textDecoration: "none", fontSize: "100" }}
+            style={{ textDecoration: "none", color: "black" }}
           >
             <ListItem button>
               {/* <ListItemIcon>{index === 0 ? "🌪" : }</ListItemIcon> */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { numbers } from "./assets/bingo-numbers";
+import { numbers, freshNumbers } from "./assets/bingo-numbers";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import SwipeableTemporaryDrawer from "./mat-nav";
@@ -14,10 +14,13 @@ function Bingo() {
   const [n, setN] = useState([]);
   const [g, setG] = useState([]);
   const [o, setO] = useState([]);
+
+  console.log(numbers);
   useEffect(() => {
     const shuffleNumbers = arr => {
       setBingoNumbers(arr.sort(() => Math.random() - 0.5));
     };
+    removeReadyAndFinished();
     shuffleNumbers(numbers);
     setReady(true);
     document.title = "Bingo";
@@ -29,10 +32,17 @@ function Bingo() {
     setCurrentValue(bingoNumbers[count]);
   }, [count, bingoNumbers]);
 
+  const removeReadyAndFinished = () => {
+    numbers.forEach((item, index, object) => {
+      if (item === "Ready?" || item === "Finished") {
+        object.splice(index, 1);
+      }
+    });
+  };
+
   const startOver = e => {
     e.preventDefault();
-    numbers.shift();
-    numbers.pop();
+    removeReadyAndFinished();
     setCount(0);
     setCurrentValue("");
     setB([]);

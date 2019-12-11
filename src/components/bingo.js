@@ -8,19 +8,18 @@ function Bingo() {
   const [bingoNumbers, setBingoNumbers] = useState([]);
   let [count, setCount] = useState(0);
   const [currentValue, setCurrentValue] = useState("");
-  const [calledNumbers, setCalledNumbers] = useState([]);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(true);
   const [b, setB] = useState([]);
   const [i, setI] = useState([]);
   const [n, setN] = useState([]);
   const [g, setG] = useState([]);
   const [o, setO] = useState([]);
 
-  let displayNumbers = [];
-
   useEffect(() => {
+    const shuffleNumbers = arr => {
+      setBingoNumbers(arr.sort(() => Math.random() - 0.5));
+    };
     shuffleNumbers(numbers);
-    setBingoNumbers(numbers);
     setReady(true);
     document.title = "Bingo";
     bingoNumbers.unshift("Ready?");
@@ -31,20 +30,24 @@ function Bingo() {
     setCurrentValue(bingoNumbers[count]);
   }, [count, bingoNumbers]);
 
-  const shuffleNumbers = arr => {
-    arr.sort(() => Math.random() - 0.5);
+  const startOver = e => {
+    e.preventDefault();
+    numbers.shift();
+    numbers.pop();
+    setCount(0);
+    setCurrentValue("");
+    setB([]);
+    setI([]);
+    setN([]);
+    setG([]);
+    setO([]);
+    setBingoNumbers([]);
   };
-
-  const startOver = () => {
-    document.location.reload(true);
-  };
-
   const callNext = e => {
     e.preventDefault();
     if (bingoNumbers[count] !== "Finished") {
       setReady(false);
       setCount(prevCount => prevCount + 1);
-      setCalledNumbers(oldNums => [...oldNums, bingoNumbers[count]]);
       if (bingoNumbers[count].charAt(0) === "B") {
         setB(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
       } else if (bingoNumbers[count].charAt(0) === "I") {
@@ -57,7 +60,6 @@ function Bingo() {
         setO(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
       }
     }
-    displayNumbers = calledNumbers;
   };
   const Container = styled.div`
     display: flex;
@@ -91,16 +93,8 @@ function Bingo() {
       <SwipeableTemporaryDrawer title={"Bingo"}></SwipeableTemporaryDrawer>
       <Container>
         <h1>{currentValue}</h1>
-        {displayNumbers.map(num => {
-          return <p key={num}>{num}</p>;
-        })}
         <ButtonContainer>
-          <Button
-            style={{ display: "hidden" }}
-            variant="contained"
-            color="primary"
-            onClick={e => startOver(e)}
-          >
+          <Button variant="contained" color="primary" onClick={e => startOver(e)}>
             Start Over
           </Button>
           <Button variant="contained" color="primary" onClick={e => callNext(e)}>

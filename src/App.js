@@ -13,7 +13,7 @@ function App() {
     //   <Footer />
     // </div>
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={bingo} />
       <Route exact path="/twister" component={Twister} />
       <Route exact path="/bingo" component={bingo} />
     </Switch>

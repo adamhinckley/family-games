@@ -14,7 +14,6 @@ function Bingo() {
   const [n, setN] = useState([]);
   const [g, setG] = useState([]);
   const [o, setO] = useState([]);
-
   useEffect(() => {
     const shuffleNumbers = arr => {
       setBingoNumbers(arr.sort(() => Math.random() - 0.5));

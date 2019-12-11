@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { numbers, freshNumbers } from "./assets/bingo-numbers";
+import { numbers } from "./assets/bingo-numbers";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 import SwipeableTemporaryDrawer from "./mat-nav";

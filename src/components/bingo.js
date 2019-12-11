@@ -36,7 +36,7 @@ function Bingo() {
   };
 
   const startOver = () => {
-    window.location.reload(false);
+    document.location.reload(true);
   };
 
   const callNext = e => {

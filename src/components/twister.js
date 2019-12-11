@@ -33,7 +33,6 @@ function Twister(props) {
   const delay = duration => {
     return new Promise(resolve => setTimeout(resolve, duration));
   };
-  console.log("rendered");
 
   const startSpin = useCallback(
     e => {

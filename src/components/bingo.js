@@ -8,17 +8,23 @@ function Bingo() {
   const [bingoNumbers, setBingoNumbers] = useState([]);
   let [count, setCount] = useState(0);
   const [currentValue, setCurrentValue] = useState("");
-  const [calledNumbers, setCalledNumbers] = useState([1, 2, 3]);
+  const [calledNumbers, setCalledNumbers] = useState([]);
+  const [ready, setReady] = useState(false);
+  const [b, setB] = useState([]);
+  const [i, setI] = useState([]);
+  const [n, setN] = useState([]);
+  const [g, setG] = useState([]);
+  const [o, setO] = useState([]);
 
   let displayNumbers = [];
-
-  console.log("display:", calledNumbers, calledNumbers.reverse());
 
   useEffect(() => {
     shuffleNumbers(numbers);
     setBingoNumbers(numbers);
+    setReady(true);
     document.title = "Bingo";
-    console.log(bingoNumbers);
+    bingoNumbers.unshift("Ready?");
+    bingoNumbers.push("Finished");
   }, [bingoNumbers]);
 
   useEffect(() => {
@@ -29,12 +35,28 @@ function Bingo() {
     arr.sort(() => Math.random() - 0.5);
   };
 
+  const startOver = () => {
+    window.location.reload(false);
+  };
+
   const callNext = e => {
     e.preventDefault();
-    setCount(prevCount => prevCount + 1);
-    // setCalledNumbers(oldNums => [...oldNums, bingoNumbers[count]]);
-    setCalledNumbers(oldNums => [...oldNums, bingoNumbers[count]]);
-    console.log("called", bingoNumbers[count]);
+    if (bingoNumbers[count] !== "Finished") {
+      setReady(false);
+      setCount(prevCount => prevCount + 1);
+      setCalledNumbers(oldNums => [...oldNums, bingoNumbers[count]]);
+      if (bingoNumbers[count].charAt(0) === "B") {
+        setB(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
+      } else if (bingoNumbers[count].charAt(0) === "I") {
+        setI(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
+      } else if (bingoNumbers[count].charAt(0) === "N") {
+        setN(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
+      } else if (bingoNumbers[count].charAt(0) === "G") {
+        setG(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
+      } else if (bingoNumbers[count].charAt(0) === "O") {
+        setO(oldNums => [...oldNums, bingoNumbers[count].slice(2, 4)]);
+      }
+    }
     displayNumbers = calledNumbers;
   };
   const Container = styled.div`
@@ -44,20 +66,79 @@ function Bingo() {
     flex-direction: column;
   `;
 
-  console.log(displayNumbers);
+  const BingoContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+  `;
+
+  const LetterContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px 0 20px;
+    /* justify-content: center; */
+    align-items: center;
+  `;
+
+  const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 250px;
+  `;
 
   return (
     <>
       <SwipeableTemporaryDrawer title={"Bingo"}></SwipeableTemporaryDrawer>
       <Container>
-        <p>{currentValue}</p>
+        <h1>{currentValue}</h1>
         {displayNumbers.map(num => {
-          console.log(num);
           return <p key={num}>{num}</p>;
         })}
-        <Button variant="contained" color="primary" onClick={e => callNext(e)}>
-          Next
-        </Button>
+        <ButtonContainer>
+          <Button
+            style={{ display: "hidden" }}
+            variant="contained"
+            color="primary"
+            onClick={e => startOver(e)}
+          >
+            Start Over
+          </Button>
+          <Button variant="contained" color="primary" onClick={e => callNext(e)}>
+            {ready ? "START" : "NEXT"}
+          </Button>
+        </ButtonContainer>
+        <BingoContainer>
+          <LetterContainer>
+            <h1>B</h1>
+            {b.map((num, i) => {
+              return <p key={i}>{num}</p>;
+            })}
+          </LetterContainer>
+          <LetterContainer>
+            <h1>I</h1>
+            {i.map((num, i) => {
+              return <p key={i}>{num}</p>;
+            })}
+          </LetterContainer>
+          <LetterContainer>
+            <h1>N</h1>
+            {n.map((num, i) => {
+              return <p key={i}>{num}</p>;
+            })}
+          </LetterContainer>
+          <LetterContainer>
+            <h1>G</h1>
+            {g.map((num, i) => {
+              return <p key={i}>{num}</p>;
+            })}
+          </LetterContainer>
+          <LetterContainer>
+            <h1>O</h1>
+            {o.map((num, i) => {
+              return <p key={i}>{num}</p>;
+            })}
+          </LetterContainer>
+        </BingoContainer>
       </Container>
     </>
   );

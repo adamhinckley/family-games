@@ -2,12 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -49,13 +45,17 @@ export default function SwipeableTemporaryDrawer(props) {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {["Twister", "Bingo"].map((text, index) => (
-          <ListItem button key={text}>
-            {/* <ListItemIcon>{index === 0 ? "🌪" : }</ListItemIcon> */}
-            <Link to={text} style={{ textDecoration: "none", fonSize: "100" }}>
+        {["Home", "Twister", "Bingo"].map((text, index) => (
+          <Link
+            key={text}
+            to={text === "Home" ? "/" : text}
+            style={{ textDecoration: "none", fontSize: "100" }}
+          >
+            <ListItem button>
+              {/* <ListItemIcon>{index === 0 ? "🌪" : }</ListItemIcon> */}
               <ListItemText primary={text} />
-            </Link>
-          </ListItem>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
@@ -67,25 +67,7 @@ export default function SwipeableTemporaryDrawer(props) {
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    ></div>
   );
 
   const HeaderContainer = styled.div`

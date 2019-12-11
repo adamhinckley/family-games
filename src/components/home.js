@@ -1,10 +1,10 @@
 import React from "react";
-import Navigation from "./navigation";
+import SwipeableTemporaryDrawer from "./mat-nav";
 
 function Home(props) {
   return (
     <div>
-      <Navigation title={"Home"} />
+      <SwipeableTemporaryDrawer title={"Home"} />
     </div>
   );
 }

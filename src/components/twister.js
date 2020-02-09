@@ -3,13 +3,13 @@ import ReactLoading from "react-loading";
 import styled from "styled-components";
 import { spinReducer, initialState } from "../Reducers/twister-reducer";
 import SwipeableTemporaryDrawer from "./mat-nav";
+import { Button, CircularProgress } from "@material-ui/core";
 
 import {
 	Container,
 	ActionDiv,
 	BodyPart,
 	ButtonContainer,
-	Button,
 	ActionContainer,
 	Word,
 	LoadingContainer
@@ -76,8 +76,7 @@ function Twister(props) {
 
 	return (
 		<Container>
-			<SwipeableTemporaryDrawer title={"Twister"}></SwipeableTemporaryDrawer>
-
+			<SwipeableTemporaryDrawer style={{ border: "1px solid red" }} title={"Twister"}></SwipeableTemporaryDrawer>
 			<ActionContainer>
 				<ActionDiv>
 					<Word>{side}</Word>
@@ -90,11 +89,19 @@ function Twister(props) {
 				</ActionDiv>
 			</ActionContainer>
 			<ButtonContainer>
-				<Button onClick={startSpin} disabled={spinning}>
+				<Button
+					style={{ height: "60px", position: "fixed", bottom: 0 }}
+					variant="contained"
+					color="primary"
+					fullWidth
+					size="large"
+					onClick={startSpin}
+					disabled={spinning}
+				>
 					{spinning ? (
-						<LoadingContainer>
-							<ReactLoading type={"spin"} color="white" />
-						</LoadingContainer>
+						<>
+							<CircularProgress />
+						</>
 					) : (
 						"Spin"
 					)}
